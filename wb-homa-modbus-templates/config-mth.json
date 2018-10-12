@@ -1,0 +1,26 @@
+{
+    "device_type": "MTH",
+    "device": {
+        "name": "MTH",
+        "id": "mth",
+        "max_read_registers": 5,
+        "channels": [
+            {
+                "name": "Temperature",
+                "reg_type": "input",
+                "address": 512,
+                "type": "temperature",
+                "format": "s16",
+                "scale": 0.1
+            },
+            {
+                "name": "Humidity",
+                "reg_type": "input",
+                "address": 513,
+                "type": "rel_humidity",
+                "scale": 0.1
+            }
+        ]
+    }
+}
+

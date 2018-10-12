@@ -1,0 +1,2 @@
+*/3 *   * * *   root    timeout 10s mosquitto_pub -r -m "$(cat /proc/uptime | cut -d" " -f1)" -t "/devices/system/controls/uptime"
+

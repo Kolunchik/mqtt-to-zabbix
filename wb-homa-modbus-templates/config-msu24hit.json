@@ -1,0 +1,29 @@
+{
+	"device_type" : "MSU24hit",
+	"device" : {
+	    "name": "MSU24hit",
+	    "id": "msu24hit",
+	    "enabled": true,
+	    "channels": [
+                {
+                    "name" : "Illuminance",
+                    "reg_type" : "input",
+                    "address" : 1,
+                    "type": "s8"
+                },
+                {
+                    "name" : "Temperature",
+                    "reg_type" : "input",
+                    "address" : 2,
+                    "type": "temperature",
+                    "format": "s8"
+                },
+                {
+                    "name" : "Humidity",
+                    "reg_type" : "input",
+                    "address" : 0,
+                    "format": "s8"
+                }
+	    ]
+	}
+}

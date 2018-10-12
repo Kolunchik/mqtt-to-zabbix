@@ -1,0 +1,12 @@
+[Unit]
+Description=mqtt-to-zabbix gateway
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+ExecStart=/opt/mqtt-to-zabbix.py
+
+[Install]
+WantedBy=multi-user.target
