@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-10-10T12:58:40Z</date>
+    <date>2018-10-18T04:37:43Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -925,7 +925,13 @@
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
-                            <dependencies/>
+                            <dependencies>
+                                <dependency>
+                                    <name>Давно не поступали данные, {$MQTT_NAME}</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
@@ -7439,7 +7445,13 @@
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
-                            <dependencies/>
+                            <dependencies>
+                                <dependency>
+                                    <name>Давно не поступали данные, {$MQTT_NAME}</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
@@ -7692,6 +7704,28 @@
         </template>
     </templates>
     <triggers>
+        <trigger>
+            <expression>{Template MQTT:system[system/controls/uptime].last(#1)}&lt;{Template MQTT:system[system/controls/uptime].last(#2)}</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Возможно, был split-brain у mqtt-брокеров, {$MQTT_NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies>
+                <dependency>
+                    <name>Устройство {$MQTT_NAME} было перезагружено</name>
+                    <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA}</expression>
+                    <recovery_expression/>
+                </dependency>
+            </dependencies>
+            <tags/>
+        </trigger>
         <trigger>
             <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
             <recovery_mode>0</recovery_mode>
