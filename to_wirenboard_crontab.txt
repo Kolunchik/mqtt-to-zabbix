@@ -1,2 +1,20 @@
+Можно добавить в crontab любимого cron-демона:
+
 */3 *   * * *   root    timeout 10s mosquitto_pub -r -m "$(cat /proc/uptime | cut -d" " -f1)" -t "/devices/system/controls/uptime"
+
+Или через правила wb-rules:
+
+defineRule("crontest", {
+  when: cron("@every 3m"),
+  then: function () {
+    log("crontest rule fired");
+    runShellCommand("cat /proc/uptime | cut -d\" \" -f1", {
+      captureOutput: true,
+      exitCallback: function (exitCode, capturedOutput) {
+        log("cmd output: " + capturedOutput);
+        dev["system/uptime"] = capturedOutput;
+      }
+    });
+  }
+});
 
