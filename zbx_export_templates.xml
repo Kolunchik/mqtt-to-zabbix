@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2018-11-11T05:07:06Z</date>
+    <date>2018-11-26T15:50:51Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -432,6 +432,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -765,6 +769,10 @@
                             <manual_close>1</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -1309,6 +1317,10 @@
                             </dependencies>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -1355,8 +1367,8 @@
                             <dependencies/>
                             <tags>
                                 <tag>
-                                    <tag>battery</tag>
-                                    <value>low</value>
+                                    <tag>error</tag>
+                                    <value>battery</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -3998,6 +4010,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -4808,6 +4824,10 @@
                             <manual_close>1</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -7092,6 +7112,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -7534,6 +7558,10 @@
                             <manual_close>1</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -8102,6 +8130,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -8545,6 +8577,10 @@
                             <manual_close>1</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -9209,6 +9245,10 @@
                             <manual_close>1</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -10099,6 +10139,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -10548,6 +10592,10 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
@@ -10574,6 +10622,10 @@
                                 </dependency>
                             </dependencies>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -10907,6 +10959,10 @@
             <manual_close>0</manual_close>
             <dependencies/>
             <tags>
+                <tag>
+                    <tag>error</tag>
+                    <value>nodata</value>
+                </tag>
                 <tag>
                     <tag>mqtt</tag>
                     <value>{$N_MQTT}</value>
