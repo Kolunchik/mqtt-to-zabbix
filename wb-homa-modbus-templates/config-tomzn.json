@@ -1,0 +1,80 @@
+// Configuration options
+{
+    "device_type": "TOMZN",
+    "device": {
+        "name": "TOMZN",
+        "id": "tomzn",
+        "channels": [
+            {
+                "name": "TotalEnergy",
+                "type": "power",
+                "reg_type": "holding",
+                "address": "0x0",
+                "format": "u32",
+                "scale": 0.01
+            },
+            {
+                "name": "ExportEnergy",
+                "type": "power",
+                "reg_type": "holding",
+                "address": "0x8",
+                "format": "u32",
+                "scale": 0.01
+            },
+            {
+                "name": "ImportEnergy",
+                "type": "power",
+                "reg_type": "holding",
+                "address": "0xA",
+                "format": "u32",
+                "scale": 0.01
+            },
+            {
+                "name": "Voltage",
+                "type": "voltage",
+                "reg_type": "holding",
+                "address": "0xC",
+                "format": "u16",
+                "scale": 0.1
+            },
+            {
+                "name": "Current",
+                "type": "current",
+                "reg_type": "holding",
+                "address": "0xD",
+                "format": "u16",
+                "scale": 0.01
+            },
+            {
+                "name": "ActivePower",
+                "type": "power",
+                "reg_type": "holding",
+                "address": "0xE",
+                "format": "s16",
+                "scale": 0.001
+            },
+            {
+                "name": "ReactivePower",
+                "type": "power",
+                "reg_type": "holding",
+                "address": "0xF",
+                "format": "s16",
+                "scale": 0.001
+            },
+            {
+                "name": "PowerFactor",
+                "type": "value",
+                "reg_type": "holding",
+                "address": "0x10",
+                "scale": 0.001
+            },
+            {
+                "name": "LineFrequency",
+                "type": "value",
+                "reg_type": "input",
+                "address": "0x11",
+                "scale": 0.01
+            }
+        ]
+    }
+}
