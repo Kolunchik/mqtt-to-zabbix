@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-06T08:32:29Z</date>
+    <date>2019-05-14T09:12:07Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -78,7 +78,7 @@
             </applications>
             <items>
                 <item>
-                    <name>Время после перезагрузки {$N_MQTT}</name>
+                    <name>{$N_MQTT}: время после перезагрузки</name>
                     <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -171,7 +171,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: влажность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -231,7 +231,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Освещённость, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: освещённость</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -291,7 +291,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -358,7 +358,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -448,7 +448,7 @@
                             <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокая влажность</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -473,7 +473,7 @@
                             <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -498,7 +498,7 @@
                             <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -574,7 +574,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: влажность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -634,7 +634,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -696,7 +696,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -786,7 +786,7 @@
                             <expression>{Template MQTT:mth[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:mth[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокая влажность</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -811,7 +811,7 @@
                             <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -836,7 +836,7 @@
                             <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -912,7 +912,7 @@
                     <description>Находит устройства Oregon</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Комфорт, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: комфорт</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -972,7 +972,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: влажность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1032,7 +1032,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Села батарейка, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: села батарейка</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1092,7 +1092,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Осадки, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: осадки</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1152,7 +1152,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Осадки (сч.), {${#MACRO}}</name>
+                            <name>{${#MACRO}}: осадки (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1212,7 +1212,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1277,7 +1277,7 @@
                             <expression>{Template MQTT:oregon[{#DEVICE}/controls/humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:oregon[{#DEVICE}/controls/humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокая влажность</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1302,7 +1302,7 @@
                             <expression>({Template MQTT:oregon[{#DEVICE}/controls/temperature].nodata({$OREGON_NODATA})}=1) and {Template MQTT:oregon[{#DEVICE}/controls/rain_total].nodata({$OREGON_NODATA})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Давно не поступали данные, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1313,7 +1313,7 @@
                             <manual_close>1</manual_close>
                             <dependencies>
                                 <dependency>
-                                    <name>Давно не поступали данные</name>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
                                     <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
@@ -1333,7 +1333,7 @@
                             <expression>{Template MQTT:oregon[{#DEVICE}/controls/temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:oregon[{#DEVICE}/controls/temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1358,7 +1358,7 @@
                             <expression>{Template MQTT:oregon[{#DEVICE}/controls/low_battery].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Пора заменить батарейку, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: пора заменить батарейку</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1383,7 +1383,7 @@
                             <expression>{Template MQTT:oregon[{#DEVICE}/controls/temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:oregon[{#DEVICE}/controls/temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1459,7 +1459,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Активная мощность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: активная мощность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1519,7 +1519,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Сила тока, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: сила тока</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1579,7 +1579,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Показания счетчика, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: показания счетчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1639,7 +1639,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Коэффициент мощности, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: коэффициент мощности</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1699,7 +1699,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Реактивная мощность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: реактивная мощность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1759,7 +1759,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Входное напряжение, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: входное напряжение</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1824,7 +1824,7 @@
                             <expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&lt;{$VOLTAGE_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокое напряжение</name>
+                            <name>{${#MACRO}}: высокое напряжение</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1849,7 +1849,7 @@
                             <expression>{Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy].nodata({$TOMZN_NODATA})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Давно не поступали данные, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1860,7 +1860,7 @@
                             <manual_close>1</manual_close>
                             <dependencies>
                                 <dependency>
-                                    <name>Давно не поступали данные</name>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
                                     <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
@@ -1880,7 +1880,7 @@
                             <expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&lt;{$VOLTAGE_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Низкое напряжение</name>
+                            <name>{${#MACRO}}: низкое напряжение</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -1956,7 +1956,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}:I1} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2016,7 +2016,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2076,7 +2076,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2136,7 +2136,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I4} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I4} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2196,7 +2196,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I5} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I5} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2256,7 +2256,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I6} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I6} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2316,7 +2316,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I7} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I7} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2376,7 +2376,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I8} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I8} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2436,7 +2436,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I9} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I9} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2496,7 +2496,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I10} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I10} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2556,7 +2556,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I11} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I11} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2616,7 +2616,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I12} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I12} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2676,7 +2676,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I13} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I13} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2736,7 +2736,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I14} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I14} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2796,7 +2796,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I15} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I15} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2856,7 +2856,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I16} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I16} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2916,7 +2916,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2983,7 +2983,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3050,7 +3050,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3117,7 +3117,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3184,7 +3184,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I4},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3251,7 +3251,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I5},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3318,7 +3318,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I6},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3385,7 +3385,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I7},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3452,7 +3452,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I8},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3519,7 +3519,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I9},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3586,7 +3586,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I10},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3653,7 +3653,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I11},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3720,7 +3720,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I12},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I12}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3787,7 +3787,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I13},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I13}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3854,7 +3854,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I14},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I14}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3921,7 +3921,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I15},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I15}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3988,7 +3988,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I16},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I16}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4055,7 +4055,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4120,7 +4120,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4141,7 +4141,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 2].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4162,7 +4162,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 3].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4183,7 +4183,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 4].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I4},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4204,7 +4204,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 5].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I5},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4225,7 +4225,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 6].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I6},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4246,7 +4246,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 7].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I7},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4267,7 +4267,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 8].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I8},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4288,7 +4288,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 9].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I9},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4309,7 +4309,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 10].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I10},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4330,7 +4330,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 11].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I11},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4351,7 +4351,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 12].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I12},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I12}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4372,7 +4372,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 13].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I13},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I13}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4390,31 +4390,10 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 14].delta(9h)}=0</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{${#MACRO}:I14} (сч.), {${#MACRO}}: давно не изменялось значение</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I14},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I14}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4432,31 +4411,10 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].delta(9h)}=0</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{${#MACRO}:I14}, {${#MACRO}}: давно не включался</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 15].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I15},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I15}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4477,7 +4435,7 @@
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 16].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}:I16},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I16}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -4513,6 +4471,48 @@
                                     <tag>error</tag>
                                     <value>rw</value>
                                 </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].delta(9h)}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не включался {${#MACRO}:I14}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 14].delta(9h)}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не изменялось значение {${#MACRO}:I14} (сч.)</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -4574,7 +4574,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}:I1} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4634,7 +4634,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4696,7 +4696,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4758,7 +4758,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4818,7 +4818,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4880,7 +4880,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4940,7 +4940,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5002,7 +5002,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5064,7 +5064,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5126,7 +5126,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K3}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5188,7 +5188,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Таймер безопасности,  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: таймер безопасности</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5248,7 +5248,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5389,7 +5389,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}:I1} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5449,7 +5449,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5511,7 +5511,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5573,7 +5573,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5633,7 +5633,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5695,7 +5695,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5755,7 +5755,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5817,7 +5817,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I4} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I4} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5877,7 +5877,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I4},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5939,7 +5939,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I5} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I5} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5999,7 +5999,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I5},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6061,7 +6061,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I6} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I6} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6121,7 +6121,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I6},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6183,7 +6183,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I7} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I7} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6243,7 +6243,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I7},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6305,7 +6305,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I8} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I8} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6365,7 +6365,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I8},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6427,7 +6427,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I9} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I9} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6487,7 +6487,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I9},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6549,7 +6549,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I10} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I10} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6609,7 +6609,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I10},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6671,7 +6671,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I11} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I11} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6731,7 +6731,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:I11},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6793,7 +6793,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6855,7 +6855,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6917,7 +6917,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K3},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K3}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6979,7 +6979,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K4},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K4}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7041,7 +7041,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K5},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K5}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7103,7 +7103,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K6},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K6}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7165,7 +7165,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K7},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K7}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7227,7 +7227,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K8},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K8}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7289,7 +7289,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K9},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K9}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7351,7 +7351,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K10},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K10}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7413,7 +7413,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:K11},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:K11}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7475,7 +7475,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Таймер безопасности,  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: таймер безопасности</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7535,7 +7535,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7676,7 +7676,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}:B1} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B1} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7736,7 +7736,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7798,7 +7798,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7860,7 +7860,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B2} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B2} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7920,7 +7920,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -7982,7 +7982,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:RGB},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:RGB}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8123,7 +8123,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}:B1} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B1} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8183,7 +8183,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8245,7 +8245,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8307,7 +8307,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B2} (сч.),  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B2} (сч.)</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8367,7 +8367,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:B2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:B2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8429,7 +8429,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:R1},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:R1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8491,7 +8491,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}:R2},  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: {${#MACRO}:R2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8553,7 +8553,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Таймер безопасности,  {${#MACRO}}</name>
+                            <name>{${#MACRO}}: таймер безопасности</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8662,6 +8662,774 @@
                     <verify_host>0</verify_host>
                 </discovery_rule>
                 <discovery_rule>
+                    <name>wb-ms-thls-v2</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>wb-ms-thls-v2.lld</key>
+                    <delay>0</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>{$LLD_LOST}</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{${#MACRO}}: температура {${#MACRO}:W1}</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 1]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>С</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>температура</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: температура {${#MACRO}:W2}</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 2]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>С</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>температура</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: влажность</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Humidity]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>%</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>влажность</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: освещённость</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Illuminance]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>lx</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>освещённость</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Input Voltage]</key>
+                            <delay>0</delay>
+                            <history>{$VOLTAGE_HISTORY}</history>
+                            <trends>{$VOLTAGE_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>V</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>питание датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: уровень шума</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Sound Level]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>dB</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>уровень шума</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>1</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>6</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: температура</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Temperature]</key>
+                            <delay>0</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>С</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>температура</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: высокая влажность</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>humid</tag>
+                                    <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: жарко</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>high</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W1&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: жарко {${#MACRO}:W1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>high</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W2&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: жарко {${#MACRO}:W2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>high</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: холодно</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>low</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W1&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: холодно {${#MACRO}:W1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>low</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W2&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: холодно {${#MACRO}:W2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>low</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: шумно</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>loud</tag>
+                                    <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                    <timeout>3s</timeout>
+                    <url/>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers/>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>1</request_method>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                </discovery_rule>
+                <discovery_rule>
                     <name>wb-ms-thls</name>
                     <type>2</type>
                     <snmp_community/>
@@ -8694,7 +9462,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: влажность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8754,7 +9522,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Освещённость, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: освещённость</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8814,7 +9582,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8874,7 +9642,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Уровень шума, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: уровень шума</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8934,7 +9702,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -9001,7 +9769,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -9091,7 +9859,7 @@
                             <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокая влажность</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -9116,7 +9884,7 @@
                             <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -9134,31 +9902,6 @@
                                 <tag>
                                     <tag>temp</tag>
                                     <value>high</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>Очень шумно, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>loud</tag>
-                                    <value>high</value>
-                                </tag>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -9166,7 +9909,7 @@
                             <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -9187,679 +9930,11 @@
                                 </tag>
                             </tags>
                         </trigger_prototype>
-                    </trigger_prototypes>
-                    <graph_prototypes/>
-                    <host_prototypes/>
-                    <jmx_endpoint/>
-                    <timeout>3s</timeout>
-                    <url/>
-                    <query_fields/>
-                    <posts/>
-                    <status_codes>200</status_codes>
-                    <follow_redirects>1</follow_redirects>
-                    <post_type>0</post_type>
-                    <http_proxy/>
-                    <headers/>
-                    <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
-                    <allow_traps>0</allow_traps>
-                    <ssl_cert_file/>
-                    <ssl_key_file/>
-                    <ssl_key_password/>
-                    <verify_peer>0</verify_peer>
-                    <verify_host>0</verify_host>
-                </discovery_rule>
-                <discovery_rule>
-                    <name>wb-ms-thls2</name>
-                    <type>2</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>wb-ms-thls2.lld</key>
-                    <delay>0</delay>
-                    <status>0</status>
-                    <allowed_hosts/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <filter>
-                        <evaltype>0</evaltype>
-                        <formula/>
-                        <conditions/>
-                    </filter>
-                    <lifetime>{$LLD_LOST}</lifetime>
-                    <description/>
-                    <item_prototypes>
-                        <item_prototype>
-                            <name>Температура, {${#MACRO}:W1}, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/External Sensor 1]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>С</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>температура</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Температура, {${#MACRO}:W2}, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/External Sensor 2]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>С</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>температура</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Humidity]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>%</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>влажность</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Освещённость, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Illuminance]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units>lx</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>освещённость</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Input Voltage]</key>
-                            <delay>0</delay>
-                            <history>{$VOLTAGE_HISTORY}</history>
-                            <trends>{$VOLTAGE_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>V</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>питание датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Уровень шума, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Sound Level]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>dB</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>уровень шума</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Temperature/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>1</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>6</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>wb-ms-thls2[{#DEVICE}/controls/Temperature]</key>
-                            <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>С</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>температура</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                    </item_prototypes>
-                    <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>error</tag>
-                                    <value>rw</value>
-                                </tag>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>humid</tag>
-                                    <value>high</value>
-                                </tag>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W1&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}:W1}, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>high</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W2&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}:W2}, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>high</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>high</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>Очень шумно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: шумно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -9877,81 +9952,6 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W1&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}:W1}, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>low</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W2&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}:W2}, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>low</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-ms-thls2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>low</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -10010,7 +10010,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Зуммер, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: зуммер</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10075,7 +10075,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Содержание углекислого газа, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: содержание углекислого газа</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10135,7 +10135,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}:W1}, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура {${#MACRO}:W1}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10195,7 +10195,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}:W2}, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура {${#MACRO}:W2}</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10255,7 +10255,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: влажность</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10315,7 +10315,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Освещённость, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: освещённость</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10375,7 +10375,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Напряжение на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: напряжение на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10435,7 +10435,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Уровень шума, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: уровень шума</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10495,7 +10495,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10562,7 +10562,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10652,7 +10652,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Высокая влажность, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокая влажность</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10677,7 +10677,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/CO2].avg({$CHECK_INTERVAL_SHORT})}&gt;{$CO2_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Высокое содержание углекислого газа, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: высокое содержание углекислого газа</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10699,10 +10699,35 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: жарко</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>high</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W1&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}:W1}, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко {${#MACRO}:W1}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10727,32 +10752,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}_W2&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}:W2}, {${#MACRO}}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>1</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                                <tag>
-                                    <tag>temp</tag>
-                                    <value>high</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко {${#MACRO}:W2}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10777,7 +10777,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Buzzer].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Зуммер включен, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: зуммер включен</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10799,27 +10799,27 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>Очень шумно, {${#MACRO}}</name>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>1</priority>
+                            <priority>3</priority>
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
                                 <tag>
-                                    <tag>loud</tag>
-                                    <value>high</value>
-                                </tag>
-                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>temp</tag>
+                                    <value>low</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -10827,7 +10827,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W1&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 1].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W1&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}:W1}, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно {${#MACRO}:W1}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10852,7 +10852,7 @@
                             <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}_W2&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/External Sensor 2].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}_W2&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}:W2}, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно {${#MACRO}:W2}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -10874,27 +10874,27 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Sound Level].avg({$CHECK_INTERVAL_SHORT})}&gt;{$LOUD_MAX:&quot;{#DEVICE}&quot;}</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: шумно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>3</priority>
+                            <priority>1</priority>
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
                                 <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
+                                    <tag>loud</tag>
+                                    <value>high</value>
                                 </tag>
                                 <tag>
-                                    <tag>temp</tag>
-                                    <value>low</value>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -10953,7 +10953,7 @@
                     <description>Находит устройства на шине W1</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Ошибки на датчике, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -11015,7 +11015,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Температура, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: температура</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -11105,7 +11105,7 @@
                             <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].nodata({$W1_NODATA})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Давно не поступали данные, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -11116,7 +11116,7 @@
                             <manual_close>1</manual_close>
                             <dependencies>
                                 <dependency>
-                                    <name>Давно не поступали данные</name>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
                                     <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
@@ -11136,7 +11136,7 @@
                             <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Жарко, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: жарко</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -11161,7 +11161,7 @@
                             <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].avg({$CHECK_INTERVAL})}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].avg({$CHECK_INTERVAL})}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                            <name>Холодно, {${#MACRO}}</name>
+                            <name>{${#MACRO}}: холодно</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
@@ -11277,31 +11277,31 @@
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I1}</macro>
-                    <value>Утечка газа</value>
+                    <value>утечка газа</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I2}</macro>
-                    <value>Минимальное давление газа</value>
+                    <value>минимальное давление газа</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I3}</macro>
-                    <value>Авария котла</value>
+                    <value>авария котла</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I4}</macro>
-                    <value>Авария глубинного насоса</value>
+                    <value>авария глубинного насоса</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I5}</macro>
-                    <value>Минимальное давления воды</value>
+                    <value>минимальное давление воды</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I6}</macro>
-                    <value>Протечка воды</value>
+                    <value>протечка воды</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I7}</macro>
-                    <value>Авария приточно-вытяжной вентиляции</value>
+                    <value>авария приточно-вытяжной вентиляции</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I8}</macro>
@@ -11329,15 +11329,15 @@
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I14}</macro>
-                    <value>Автотест</value>
+                    <value>автотест</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I15}</macro>
-                    <value>Отсутствие входящей электроэнергии</value>
+                    <value>отсутствие входящей электроэнергии</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MCM16_1:I16}</macro>
-                    <value>Работает генератор</value>
+                    <value>работает генератор</value>
                 </macro>
                 <macro>
                     <macro>{$N_WB_MSW2_3}</macro>
@@ -11417,11 +11417,11 @@
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_MIN}</macro>
-                    <value>160</value>
+                    <value>190</value>
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_MIN_OK}</macro>
-                    <value>170</value>
+                    <value>200</value>
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_TREND}</macro>
@@ -11449,7 +11449,7 @@
             <expression>{Template MQTT:system[system/controls/uptime].last(#1)}&lt;{Template MQTT:system[system/controls/uptime].last(#2)}</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Возможно, был split-brain у mqtt-брокеров</name>
+            <name>{$N_MQTT}: split-brain у mqtt-брокеров</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -11460,7 +11460,7 @@
             <manual_close>1</manual_close>
             <dependencies>
                 <dependency>
-                    <name>Устройство было перезагружено</name>
+                    <name>{$N_MQTT}: устройство было перезагружено</name>
                     <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA}</expression>
                     <recovery_expression/>
                 </dependency>
@@ -11476,7 +11476,7 @@
             <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Давно не поступали данные</name>
+            <name>{$N_MQTT}: давно не поступали данные</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -11501,7 +11501,7 @@
             <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA})}=0)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Поступают одинаковые данные</name>
+            <name>{$N_MQTT}: поступают одинаковые данные</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -11512,7 +11512,7 @@
             <manual_close>0</manual_close>
             <dependencies>
                 <dependency>
-                    <name>Давно не поступали данные</name>
+                    <name>{$N_MQTT}: давно не поступали данные</name>
                     <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
                     <recovery_expression/>
                 </dependency>
@@ -11528,7 +11528,7 @@
             <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA}</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Устройство было перезагружено</name>
+            <name>{$N_MQTT}: устройство было перезагружено</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -11539,7 +11539,7 @@
             <manual_close>0</manual_close>
             <dependencies>
                 <dependency>
-                    <name>Поступают одинаковые данные</name>
+                    <name>{$N_MQTT}: поступают одинаковые данные</name>
                     <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA})}=0)</expression>
                     <recovery_expression/>
                 </dependency>
