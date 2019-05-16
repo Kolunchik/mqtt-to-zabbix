@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-05-14T09:12:07Z</date>
+    <date>2019-05-16T10:47:30Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -298,9 +298,9 @@
                             <key>msu24hit[{#DEVICE}/controls/Temperature/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -331,8 +331,14 @@
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
-                                    <type>6</type>
-                                    <params/>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -420,7 +426,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -462,6 +468,37 @@
                                 <tag>
                                     <tag>humid</tag>
                                     <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -641,9 +678,9 @@
                             <key>mth[{#DEVICE}/controls/Temperature/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -672,7 +709,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -758,7 +806,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>( {$EVENT_DRIVEN}=0 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].min({$ERROR_INTERVAL})}&gt;0 ) or ( {$EVENT_DRIVEN}=1 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].count({$ERROR_INTERVAL})}=1 )</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -800,6 +848,37 @@
                                 <tag>
                                     <tag>humid</tag>
                                     <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -1310,7 +1389,7 @@
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            <manual_close>1</manual_close>
+                            <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
@@ -1579,6 +1658,79 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <type>2</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>tomzn[{#DEVICE}/controls/ImportEnergy/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: показания счетчика</name>
                             <type>2</type>
                             <snmp_community/>
@@ -1821,6 +1973,31 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
+                            <expression>( {$EVENT_DRIVEN}=0 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].min({$ERROR_INTERVAL})}&gt;0 ) or ( {$EVENT_DRIVEN}=1 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].last()}&gt;0 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].count({$ERROR_INTERVAL})}=1 )</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&lt;{$VOLTAGE_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
@@ -1846,7 +2023,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy].nodata({$TOMZN_NODATA})}=1</expression>
+                            <expression>{Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy].nodata({$CHECK_NODATA})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -1857,7 +2034,7 @@
                             <priority>2</priority>
                             <description/>
                             <type>0</type>
-                            <manual_close>1</manual_close>
+                            <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
@@ -2923,9 +3100,9 @@
                             <key>wb-mcm16[{#DEVICE}/controls/Input 1/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -2956,8 +3133,14 @@
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
-                                    <type>6</type>
-                                    <params/>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4117,6 +4300,31 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 1].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4134,6 +4342,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 2].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 2].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4159,6 +4392,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 3].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 3].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 3].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4176,6 +4434,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 4].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 4].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4201,6 +4484,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 5].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 5].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 5].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4218,6 +4526,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 6].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 6].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4243,6 +4576,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 7].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 7].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 7].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4260,6 +4618,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 8].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 8].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4285,6 +4668,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 9].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 9].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 9].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4302,6 +4710,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 10].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 10].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4327,6 +4760,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 11].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 11].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 11].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4344,6 +4802,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 12].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 12].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I12}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4369,6 +4852,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 13].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 13].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I13}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 13].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4386,6 +4894,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 14].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I14}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>1</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4411,6 +4944,31 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 15].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 15].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I15}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
                             <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 15].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
@@ -4428,6 +4986,31 @@
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 16].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 16].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I16}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4453,7 +5036,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
@@ -4478,7 +5061,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].delta(9h)}=0</expression>
+                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 14].delta(5h)}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не включался {${#MACRO}:I14}</name>
@@ -4493,13 +5076,17 @@
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>error</tag>
+                                    <value>notest</value>
+                                </tag>
+                                <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 14].delta(9h)}=0</expression>
+                            <expression>{Template MQTT:wb-mcm16[{#DEVICE}/controls/Counter 14].delta(5h)}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не изменялось значение {${#MACRO}:I14} (сч.)</name>
@@ -4513,6 +5100,41 @@
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>notest</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
+                                </tag>
                                 <tag>
                                     <tag>mqtt</tag>
                                     <value>{#DEVICE}</value>
@@ -4641,9 +5263,9 @@
                             <key>wb-mr3[{#DEVICE}/controls/Input 1/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -4672,7 +5294,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -5310,7 +5943,145 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mr3[{#DEVICE}/controls/Input 1/meta/error].strlen()}&gt;0</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 1 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 1].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr3[{#DEVICE}/controls/Input 1].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 2 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 2].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr3[{#DEVICE}/controls/Input 2].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 3 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Input 3].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr3[{#DEVICE}/controls/Input 3].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr3[{#DEVICE}/controls/Input 1/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
@@ -5327,6 +6098,37 @@
                                 <tag>
                                     <tag>error</tag>
                                     <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -5456,9 +6258,9 @@
                             <key>wb-mr11[{#DEVICE}/controls/Input 1/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -5487,7 +6289,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -7597,7 +8410,513 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 1/meta/error].strlen()}&gt;0</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 1 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 1].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 1].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I1}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 2 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 2].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 2].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I2}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 3 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 3].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 3].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I3}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 4 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 4].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 4].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I4}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 5 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 5].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 5].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I5}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 6 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 6].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 6].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I6}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 7 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 7].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 7].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I7}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 8 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 8].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 8].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I8}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 9 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 9].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 9].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I9}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 10 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 10].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 10].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I10}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 11 counter].delta({$EVENT_INTERVAL})}&lt;&gt;0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Input 11].max({$EVENT_INTERVAL})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                                <tag>
+                                    <tag>short</tag>
+                                    <value/>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 11].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: {${#MACRO}:I11}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-mr11[{#DEVICE}/controls/Input 1/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
@@ -7614,6 +8933,37 @@
                                 <tag>
                                     <tag>error</tag>
                                     <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -7743,9 +9093,9 @@
                             <key>wb-mrgb[{#DEVICE}/controls/Button 1/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -7774,7 +9124,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -8044,7 +9405,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mrgb[{#DEVICE}/controls/Button 1/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-mrgb[{#DEVICE}/controls/Button 1/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
@@ -8061,6 +9422,37 @@
                                 <tag>
                                     <tag>error</tag>
                                     <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrgb[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -8190,9 +9582,9 @@
                             <key>wb-mrm2[{#DEVICE}/controls/Button 1/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -8221,7 +9613,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -8615,7 +10018,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-mrm2[{#DEVICE}/controls/Button 1/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-mrm2[{#DEVICE}/controls/Button 1/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
@@ -8632,6 +10035,37 @@
                                 <tag>
                                     <tag>error</tag>
                                     <value>rw</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrm2[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -9061,9 +10495,9 @@
                             <key>wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -9094,8 +10528,14 @@
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
-                                    <type>6</type>
-                                    <params/>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -9183,7 +10623,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -9225,6 +10665,37 @@
                                 <tag>
                                     <tag>humid</tag>
                                     <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -9709,9 +11180,9 @@
                             <key>wb-ms-thls[{#DEVICE}/controls/Temperature/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -9742,8 +11213,14 @@
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
-                                    <type>6</type>
-                                    <params/>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -9831,7 +11308,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -9873,6 +11350,37 @@
                                 <tag>
                                     <tag>humid</tag>
                                     <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -10502,9 +12010,9 @@
                             <key>wb-msw2[{#DEVICE}/controls/Temperature/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -10535,8 +12043,14 @@
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
-                                    <type>6</type>
-                                    <params/>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -10624,7 +12138,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -10691,6 +12205,37 @@
                                 <tag>
                                     <tag>CO2</tag>
                                     <value>high</value>
+                                </tag>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{#DEVICE}</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{${#MACRO}}: давно не поступали данные</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>error</tag>
+                                    <value>nodata</value>
                                 </tag>
                                 <tag>
                                     <tag>mqtt</tag>
@@ -10960,9 +12505,9 @@
                             <key>wb-w1[wb-w1/controls/{#DEVICE}/meta/error]</key>
                             <delay>0</delay>
                             <history>{$ERR_HISTORY}</history>
-                            <trends>0</trends>
+                            <trends>{$ERR_TREND}</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -10991,7 +12536,18 @@
                                 <name>mqttErrors</name>
                             </valuemap>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -11077,7 +12633,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}/meta/error].strlen()}&gt;0</expression>
+                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}/meta/error].last()}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: {ITEM.VALUE1}</name>
@@ -11102,7 +12658,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].nodata({$W1_NODATA})}=1</expression>
+                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].nodata({$CHECK_NODATA})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -11232,12 +12788,24 @@
                     <value>30d</value>
                 </macro>
                 <macro>
+                    <macro>{$ERROR_INTERVAL}</macro>
+                    <value>3m</value>
+                </macro>
+                <macro>
                     <macro>{$ERR_HISTORY}</macro>
                     <value>7d</value>
                 </macro>
                 <macro>
                     <macro>{$ERR_TREND}</macro>
                     <value>14d</value>
+                </macro>
+                <macro>
+                    <macro>{$EVENT_DRIVEN}</macro>
+                    <value>1</value>
+                </macro>
+                <macro>
+                    <macro>{$EVENT_INTERVAL}</macro>
+                    <value>5m</value>
                 </macro>
                 <macro>
                     <macro>{$HUMID_MAX}</macro>
@@ -11400,10 +12968,6 @@
                     <value>15</value>
                 </macro>
                 <macro>
-                    <macro>{$TOMZN_NODATA}</macro>
-                    <value>5m</value>
-                </macro>
-                <macro>
                     <macro>{$VOLTAGE_HISTORY}</macro>
                     <value>1d</value>
                 </macro>
@@ -11426,10 +12990,6 @@
                 <macro>
                     <macro>{$VOLTAGE_TREND}</macro>
                     <value>2d</value>
-                </macro>
-                <macro>
-                    <macro>{$W1_NODATA}</macro>
-                    <value>15m</value>
                 </macro>
                 <macro>
                     <macro>{$W_HISTORY}</macro>
@@ -11509,7 +13069,7 @@
             <priority>2</priority>
             <description/>
             <type>0</type>
-            <manual_close>0</manual_close>
+            <manual_close>1</manual_close>
             <dependencies>
                 <dependency>
                     <name>{$N_MQTT}: давно не поступали данные</name>
@@ -11536,7 +13096,7 @@
             <priority>0</priority>
             <description/>
             <type>0</type>
-            <manual_close>0</manual_close>
+            <manual_close>1</manual_close>
             <dependencies>
                 <dependency>
                     <name>{$N_MQTT}: поступают одинаковые данные</name>
@@ -11574,7 +13134,19 @@
                     <newvalue>нет ошибок</newvalue>
                 </mapping>
                 <mapping>
+                    <value>0</value>
+                    <newvalue>нет ошибок</newvalue>
+                </mapping>
+                <mapping>
                     <value>1</value>
+                    <newvalue>ошибка чтения</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>ошибка записи</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
                     <newvalue>ошибка чтения/записи</newvalue>
                 </mapping>
                 <mapping>
@@ -11583,7 +13155,7 @@
                 </mapping>
                 <mapping>
                     <value>rw</value>
-                    <newvalue>ошибка чтения и записи</newvalue>
+                    <newvalue>ошибка чтения/записи</newvalue>
                 </mapping>
                 <mapping>
                     <value>w</value>

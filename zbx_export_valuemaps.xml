@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>3.4</version>
-    <date>2018-10-10T12:58:30Z</date>
+    <version>4.0</version>
+    <date>2019-05-16T05:33:15Z</date>
     <value_maps>
         <value_map>
             <name>mqttDryInput</name>
@@ -24,7 +24,19 @@
                     <newvalue>нет ошибок</newvalue>
                 </mapping>
                 <mapping>
+                    <value>0</value>
+                    <newvalue>нет ошибок</newvalue>
+                </mapping>
+                <mapping>
                     <value>1</value>
+                    <newvalue>ошибка чтения</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>ошибка записи</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
                     <newvalue>ошибка чтения/записи</newvalue>
                 </mapping>
                 <mapping>
@@ -33,7 +45,7 @@
                 </mapping>
                 <mapping>
                     <value>rw</value>
-                    <newvalue>ошибка чтения и записи</newvalue>
+                    <newvalue>ошибка чтения/записи</newvalue>
                 </mapping>
                 <mapping>
                     <value>w</value>
