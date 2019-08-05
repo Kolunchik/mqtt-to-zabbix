@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>4.0</version>
-    <date>2019-05-16T10:47:30Z</date>
+    <version>4.2</version>
+    <date>2019-08-05T10:06:13Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -127,6 +127,72 @@
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
                     <request_method>1</request_method>
+                    <output_format>0</output_format>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>{$N_MQTT}: напряжение питания</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>wb-adc[wb-adc/controls/Vin]</key>
+                    <delay>0</delay>
+                    <history>{$ERR_HISTORY}</history>
+                    <trends>{$ERR_TREND}</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>V</units>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>питание датчиков</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing>
+                        <step>
+                            <type>20</type>
+                            <params>60</params>
+                            <error_handler>0</error_handler>
+                            <error_handler_params/>
+                        </step>
+                    </preprocessing>
+                    <jmx_endpoint/>
+                    <timeout>3s</timeout>
+                    <url/>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers/>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -334,11 +400,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -476,7 +546,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:msu24hit[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -491,7 +561,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -577,6 +647,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>mth</name>
@@ -714,11 +787,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -806,31 +883,6 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>( {$EVENT_DRIVEN}=0 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].min({$ERROR_INTERVAL})}&gt;0 ) or ( {$EVENT_DRIVEN}=1 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].last()}&gt;0 and {Template MQTT:mth[{#DEVICE}/controls/Temperature/meta/error].count({$ERROR_INTERVAL})}=1 )</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>error</tag>
-                                    <value>rw</value>
-                                </tag>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
                             <expression>{Template MQTT:mth[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:mth[{#DEVICE}/controls/Humidity].avg({$CHECK_INTERVAL})}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
@@ -856,7 +908,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:mth[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -871,7 +923,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -957,6 +1009,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>oregon</name>
@@ -1378,7 +1433,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>({Template MQTT:oregon[{#DEVICE}/controls/temperature].nodata({$OREGON_NODATA})}=1) and {Template MQTT:oregon[{#DEVICE}/controls/rain_total].nodata({$OREGON_NODATA})}=1</expression>
+                            <expression>({Template MQTT:oregon[{#DEVICE}/controls/temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1) and {Template MQTT:oregon[{#DEVICE}/controls/rain_total].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -1393,7 +1448,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -1504,6 +1559,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>tomzn</name>
@@ -1701,11 +1759,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1973,31 +2035,6 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>( {$EVENT_DRIVEN}=0 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].min({$ERROR_INTERVAL})}&gt;0 ) or ( {$EVENT_DRIVEN}=1 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].last()}&gt;0 and {Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy/meta/error].count({$ERROR_INTERVAL})}=1 )</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>error</tag>
-                                    <value>rw</value>
-                                </tag>
-                                <tag>
-                                    <tag>mqtt</tag>
-                                    <value>{#DEVICE}</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
                             <expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MAX:&quot;{#DEVICE}&quot;}</expression>
                             <recovery_mode>1</recovery_mode>
                             <recovery_expression>{Template MQTT:tomzn[{#DEVICE}/controls/Voltage].avg({$CHECK_INTERVAL_SHORT})}&lt;{$VOLTAGE_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
@@ -2023,7 +2060,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:tomzn[{#DEVICE}/controls/ImportEnergy].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -2038,7 +2075,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -2099,6 +2136,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-mcm16</name>
@@ -3136,11 +3176,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3208,6 +3252,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3275,6 +3321,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3342,6 +3390,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3409,6 +3459,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3476,6 +3528,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3543,6 +3597,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3610,6 +3666,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3677,6 +3735,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3744,6 +3804,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3811,6 +3873,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3878,6 +3942,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3945,6 +4011,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4012,6 +4080,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4079,6 +4149,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4146,6 +4218,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4213,6 +4287,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -5111,7 +5187,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mcm16[{#DEVICE}/controls/Input 1].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -5126,7 +5202,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -5162,6 +5238,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-mr3</name>
@@ -5299,11 +5378,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -6106,7 +6189,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr3[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -6121,7 +6204,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -6157,6 +6240,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-mr11</name>
@@ -6294,11 +6380,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -8941,7 +9031,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mr11[{#DEVICE}/controls/Supply voltage].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -8956,7 +9046,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -8992,6 +9082,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-mrgb</name>
@@ -9129,11 +9222,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -9430,7 +9527,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrgb[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrgb[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -9445,7 +9542,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -9481,6 +9578,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-mrm2</name>
@@ -9618,11 +9718,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -10043,7 +10147,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrm2[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{$EVENT_DRIVEN}=0 and {Template MQTT:wb-mrm2[{#DEVICE}/controls/Button 1].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -10058,7 +10162,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -10094,6 +10198,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-ms-thls-v2</name>
@@ -10531,11 +10638,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -10673,7 +10784,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:wb-ms-thls-v2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -10688,7 +10799,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -10899,6 +11010,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-ms-thls</name>
@@ -11216,11 +11330,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -11358,7 +11476,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:wb-ms-thls[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -11373,7 +11491,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -11484,6 +11602,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-msw2</name>
@@ -11558,6 +11679,8 @@
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -12046,11 +12169,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -12213,7 +12340,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:wb-msw2[{#DEVICE}/controls/Temperature].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -12228,7 +12355,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -12464,6 +12591,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>wb-w1</name>
@@ -12541,11 +12671,15 @@
                                     <type>5</type>
                                     <params>(.*)
 \1:=0:r=1:w=2:rw=3:wr=3</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -12658,7 +12792,7 @@
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].nodata({$CHECK_NODATA})}=1</expression>
+                            <expression>{Template MQTT:wb-w1[wb-w1/controls/{#DEVICE}].nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{${#MACRO}}: давно не поступали данные</name>
@@ -12673,7 +12807,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -12759,6 +12893,9 @@
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
             </discovery_rules>
             <httptests/>
@@ -12774,6 +12911,10 @@
                 <macro>
                     <macro>{$CHECK_NODATA}</macro>
                     <value>10m</value>
+                </macro>
+                <macro>
+                    <macro>{$CHECK_NODATA:UPTIME}</macro>
+                    <value>9m</value>
                 </macro>
                 <macro>
                     <macro>{$CO2_MAX}</macro>
@@ -12924,10 +13065,6 @@
                     <value>WB_MS_THLS_2</value>
                 </macro>
                 <macro>
-                    <macro>{$OREGON_NODATA}</macro>
-                    <value>3h</value>
-                </macro>
-                <macro>
                     <macro>{$POWER_HISTORY}</macro>
                     <value>30d</value>
                 </macro>
@@ -13002,6 +13139,7 @@
             </macros>
             <templates/>
             <screens/>
+            <tags/>
         </template>
     </templates>
     <triggers>
@@ -13021,7 +13159,7 @@
             <dependencies>
                 <dependency>
                     <name>{$N_MQTT}: устройство было перезагружено</name>
-                    <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA}</expression>
+                    <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA:UPTIME}</expression>
                     <recovery_expression/>
                 </dependency>
             </dependencies>
@@ -13033,7 +13171,34 @@
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+            <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].count(1h)}&gt;5 and {Template MQTT:wb-adc[wb-adc/controls/Vin].delta(1h)}=0</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>{$N_MQTT}: давно не изменялось значение напряжение питания</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies>
+                <dependency>
+                    <name>{$N_MQTT}: давно не поступали данные</name>
+                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
+                    <recovery_expression/>
+                </dependency>
+            </dependencies>
+            <tags>
+                <tag>
+                    <tag>mqtt</tag>
+                    <value>{$N_MQTT}</value>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>{$N_MQTT}: давно не поступали данные</name>
@@ -13058,7 +13223,34 @@
             </tags>
         </trigger>
         <trigger>
-            <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA})}=0)</expression>
+            <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].last()}&lt;10</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>{$N_MQTT}: напряжение питания ниже 10V</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies>
+                <dependency>
+                    <name>{$N_MQTT}: давно не изменялось значение напряжение питания</name>
+                    <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].count(1h)}&gt;5 and {Template MQTT:wb-adc[wb-adc/controls/Vin].delta(1h)}=0</expression>
+                    <recovery_expression/>
+                </dependency>
+            </dependencies>
+            <tags>
+                <tag>
+                    <tag>mqtt</tag>
+                    <value>{$N_MQTT}</value>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA:UPTIME})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA:UPTIME})}=0)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>{$N_MQTT}: поступают одинаковые данные</name>
@@ -13073,7 +13265,7 @@
             <dependencies>
                 <dependency>
                     <name>{$N_MQTT}: давно не поступали данные</name>
-                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA})}=1</expression>
+                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
                     <recovery_expression/>
                 </dependency>
             </dependencies>
@@ -13085,7 +13277,7 @@
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA}</expression>
+            <expression>{Template MQTT:system[system/controls/uptime].last()}&lt;{$CHECK_NODATA:UPTIME}</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>{$N_MQTT}: устройство было перезагружено</name>
@@ -13100,7 +13292,7 @@
             <dependencies>
                 <dependency>
                     <name>{$N_MQTT}: поступают одинаковые данные</name>
-                    <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA})}=0)</expression>
+                    <expression>({Template MQTT:system[system/controls/uptime].count({$CHECK_NODATA:UPTIME})}&gt;1) and ({Template MQTT:system[system/controls/uptime].delta({$CHECK_NODATA:UPTIME})}=0)</expression>
                     <recovery_expression/>
                 </dependency>
             </dependencies>
