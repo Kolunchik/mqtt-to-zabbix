@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-08-05T10:06:13Z</date>
+    <date>2019-10-25T03:52:19Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -137,7 +137,7 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>{$N_MQTT}: напряжение питания</name>
+                    <name>{$N_MQTT}: напряжение питания контроллера</name>
                     <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -357,7 +357,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -744,7 +744,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1716,7 +1716,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -3133,7 +3133,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -4314,7 +4314,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5335,7 +5335,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -5964,7 +5964,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -6337,7 +6337,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -8438,7 +8438,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -9179,7 +9179,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -9675,7 +9675,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10475,7 +10475,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -10595,7 +10595,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -11167,7 +11167,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -11287,7 +11287,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -12006,7 +12006,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: напряжение на датчике</name>
+                            <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -12126,7 +12126,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -12628,7 +12628,7 @@
                     <description>Находит устройства на шине W1</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки на датчике</name>
+                            <name>{${#MACRO}}: ошибки связи</name>
                             <type>2</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -12741,7 +12741,15 @@
                             </applications>
                             <valuemap/>
                             <logtimefmt/>
-                            <preprocessing/>
+                            <preprocessing>
+                                <step>
+                                    <type>13</type>
+                                    <params>-100
+100</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
                             <jmx_endpoint/>
                             <timeout>3s</timeout>
                             <url/>
@@ -13174,7 +13182,7 @@
             <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].count(1h)}&gt;5 and {Template MQTT:wb-adc[wb-adc/controls/Vin].delta(1h)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>{$N_MQTT}: давно не изменялось значение напряжение питания</name>
+            <name>{$N_MQTT}: давно не изменялось значение напряжения питания контроллера</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -13226,7 +13234,7 @@
             <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].last()}&lt;10</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>{$N_MQTT}: напряжение питания ниже 10V</name>
+            <name>{$N_MQTT}: напряжение питания контроллера ниже 10V</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -13237,7 +13245,7 @@
             <manual_close>0</manual_close>
             <dependencies>
                 <dependency>
-                    <name>{$N_MQTT}: давно не изменялось значение напряжение питания</name>
+                    <name>{$N_MQTT}: давно не изменялось значение напряжения питания контроллера</name>
                     <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].count(1h)}&gt;5 and {Template MQTT:wb-adc[wb-adc/controls/Vin].delta(1h)}=0</expression>
                     <recovery_expression/>
                 </dependency>
