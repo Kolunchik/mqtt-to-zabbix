@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-01-13T04:35:57Z</date>
+    <date>2020-02-09T06:17:56Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -631,7 +631,9 @@
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{last()}=1</expression>
+                                    <expression>{min({$CHECK_INTERVAL})}=1</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{max({$CHECK_INTERVAL})}=0</recovery_expression>
                                     <name>{${#MACRO}}: пора заменить батарейку</name>
                                     <priority>INFO</priority>
                                     <manual_close>YES</manual_close>
