@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-09T06:17:56Z</date>
+    <date>2020-03-17T10:53:58Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -248,6 +248,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -348,6 +355,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -431,6 +445,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -495,6 +516,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -594,6 +622,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -694,6 +729,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -3754,6 +3796,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -3806,6 +3855,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -3858,6 +3914,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -3924,6 +3987,13 @@
                                     <name>уровень шума</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+200</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4007,6 +4077,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4090,6 +4167,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4156,6 +4240,13 @@
                                     <name>уровень шума</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+200</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4239,6 +4330,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4390,6 +4488,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4442,6 +4547,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4494,6 +4606,13 @@
                                     <name>влажность</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4560,6 +4679,13 @@
                                     <name>уровень шума</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>0
+200</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4643,6 +4769,13 @@
                                     <name>температура</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>IN_RANGE</type>
+                                    <params>-100
+100</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -4714,56 +4847,6 @@
                     <description>Находит устройства на шине W1</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-w1[wb-w1/controls/{#DEVICE}/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
-                        <item_prototype>
                             <name>{${#MACRO}}: температура</name>
                             <type>TRAP</type>
                             <key>wb-w1[wb-w1/controls/{#DEVICE}]</key>
@@ -4782,6 +4865,10 @@
                                     <type>IN_RANGE</type>
                                     <params>-100
 100</params>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
                                 </step>
                             </preprocessing>
                             <request_method>POST</request_method>
@@ -4857,7 +4944,7 @@
                 <macro>
                     <macro>{$CHECK_INTERVAL_SHORT}</macro>
                     <value>5m</value>
-                    <description>отрезки времени для быстрых проверок (напряжение электросети, CO2, уровень шума)</description>
+                    <description>отрезки времени для быстрых проверок (напряжение в электросети, CO2, уровень шума)</description>
                 </macro>
                 <macro>
                     <macro>{$CHECK_NODATA}</macro>
@@ -4902,7 +4989,12 @@
                 <macro>
                     <macro>{$EVENT_INTERVAL}</macro>
                     <value>5m</value>
-                    <description>отрезок времени для отслеживания быстрых срабатываний сухих входов</description>
+                    <description>отрезок времени для отслеживания краткосрочных срабатываний сухих входов</description>
+                </macro>
+                <macro>
+                    <macro>{$HB_INTERVAL}</macro>
+                    <value>3m</value>
+                    <description>heartbeat интервал при сохранении повторяющихся данных</description>
                 </macro>
                 <macro>
                     <macro>{$HUMID_MAX}</macro>
