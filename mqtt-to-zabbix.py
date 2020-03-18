@@ -97,10 +97,10 @@ def publish(client,topic,payload=None,qos=0,retain=False):
     return client.publish(topic,payload,qos,retain)
 
 def on_message(client,userdata,msg):
-    if userdata['args'].every:
-        userdata['mqtt_data'][msg.topic]=msg.payload.decode().strip()
-    else:
+    if not userdata['args'].every or ( userdata['args'].instant and userdata['args'].instant in msg.topic ):
         userdata['q'].put({msg.topic:msg.payload.decode().strip()})
+    else:
+        userdata['mqtt_data'][msg.topic]=msg.payload.decode().strip()
 
 def get_parser():
     parser=argparse.ArgumentParser(description="Wirenboard MQTT-to-Zabbix gateway", add_help=False)
@@ -115,6 +115,7 @@ def get_parser():
     parser.add_argument("-c","--zabbix-sender-config",help="path to zabbix_sender config",default="/etc/zabbix/zabbix_agentd.conf")
     parser.add_argument("--every",type=int,help="send data to zabbix ever n seconds",default=10)
     parser.add_argument("--only-new",help="send only fresh data",default=False,action='store_true')
+    parser.add_argument("--instant",help="send this topics immediately")
     parser.add_argument("--lld",help="start lld-discovery",action='store_true')
     parser.add_argument("--lld-null",action="append",help="Emit empty lld for device")
     return parser
