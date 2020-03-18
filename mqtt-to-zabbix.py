@@ -4,6 +4,7 @@ try:
 except:
     print("please install paho-mqtt (e.g. pip3 install --user paho-mqtt)")
     raise
+import os
 import sys
 import argparse
 import signal
@@ -11,8 +12,9 @@ import multiprocessing
 import subprocess
 import json
 
+filename='/tmp/mqtt-to-zabbix.{}'.format(os.getpid())
+
 def send_dump_to_zabbix(prog,q):
-    filename='/tmp/dump_to_zabbix_sender'
     while True:
         metrics=q.get()
         with open(filename,mode="w") as target:
@@ -26,7 +28,6 @@ def send_dump_to_zabbix(prog,q):
         subprocess.call(prog+["-i",filename])
 
 def send_lld_to_zabbix(prog,q):
-    filename='/tmp/lld_to_zabbix_sender'
     lld={}
     lld_skip={}
     metrics=q.get()
@@ -61,7 +62,6 @@ def send_lld_to_zabbix(prog,q):
     sys.exit()
 
 def send_null_lld_to_zabbix(prog,q,lld_null):
-    filename='/tmp/null_lld_to_zabbix_sender'
     with open(filename,mode="w") as target:
         for k in lld_null:
             v=json.dumps([])

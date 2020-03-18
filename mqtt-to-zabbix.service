@@ -6,7 +6,7 @@ After=multi-user.target
 Type=simple
 Restart=always
 RestartSec=3
-ExecStart=/opt/mqtt-to-zabbix.py
+ExecStart=/opt/mqtt-to-zabbix.py --only-new --instant 'Button ' --every 20
 
 [Install]
 WantedBy=multi-user.target

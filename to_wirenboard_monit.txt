@@ -1,3 +1,0 @@
- check process mqtt-to-zabbix with pidfile /var/run/mqtt-to-zabbix.pid
-   start program = "start-stop-daemon --pidfile /var/run/mqtt-to-zabbix.pid --make-pidfile --start --exec /opt/mqtt-to-zabbix-wb.py"
-   stop  program = "start-stop-daemon --pidfile /var/run/mqtt-to-zabbix.pid --stop"
