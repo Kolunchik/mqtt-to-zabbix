@@ -25,7 +25,7 @@ def send_dump_to_zabbix(prog,q):
                     device_id=splitted[offset].split("_",1)
                     k=device_id[0]+'['+'/'.join(splitted[offset:])+']'
                 print("- {} {}".format(json.dumps(k),json.dumps(v)),file=target)
-        subprocess.call(prog+["-i",filename])
+        subprocess.call(prog)
 
 def send_lld_to_zabbix(prog,q):
     lld={}
@@ -58,7 +58,7 @@ def send_lld_to_zabbix(prog,q):
         for k,v in lld.items():
             v=json.dumps(v)
             print("- {} {}".format(json.dumps(k+'.lld'),json.dumps(v)),file=target)
-    subprocess.call(prog+["-i",filename])
+    subprocess.call(prog)
     sys.exit()
 
 def send_null_lld_to_zabbix(prog,q,lld_null):
@@ -66,7 +66,7 @@ def send_null_lld_to_zabbix(prog,q,lld_null):
         for k in lld_null:
             v=json.dumps([])
             print("- {} {}".format(json.dumps(k+'.lld'),json.dumps(v)),file=target)
-    subprocess.call(prog+["-i",filename])
+    subprocess.call(prog)
 
 def copy_every(seconds,mqtt_data,q,only_new):
     def trapper(signum, frame):
@@ -113,6 +113,7 @@ def get_parser():
     parser.add_argument("-P","--mqtt-password",help="MQTT password")
     parser.add_argument("-u","--mqtt-login",help="MQTT login")
     parser.add_argument("-c","--zabbix-sender-config",help="path to zabbix_sender config",default="/etc/zabbix/zabbix_agentd.conf")
+    parser.add_argument("-s","--zabbix-sender-source",help="source host for zabbix_sender")
     parser.add_argument("--every",type=int,help="send data to zabbix ever n seconds",default=10)
     parser.add_argument("--only-new",help="send only fresh data",default=False,action='store_true')
     parser.add_argument("--instant",help="send this topics immediately")
@@ -135,7 +136,10 @@ def get_client(userdata,on_connect,on_message):
 def letsgo():
     args=get_parser().parse_args()
     userdata={"args":args,"mqtt_data":{},"q":multiprocessing.Queue()}
-    args_to_processor=(["zabbix_sender","--config",userdata['args'].zabbix_sender_config],userdata["q"])
+    zabbix_sender_options=["zabbix_sender","--config",userdata['args'].zabbix_sender_config,"-i",filename]
+    if args.zabbix_sender_source:
+        zabbix_sender_options+=["-s",args.zabbix_sender_source]
+    args_to_processor=(zabbix_sender_options,userdata["q"])
     client=get_client(userdata,on_connect,on_message)
     if args.every:
         copy_every(args.every,userdata["mqtt_data"],userdata["q"],args.only_new)
