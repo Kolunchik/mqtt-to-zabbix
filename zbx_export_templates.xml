@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-03-17T11:47:22Z</date>
+    <date>2020-03-21T06:47:20Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -182,8 +182,13 @@
                     </applications>
                     <preprocessing>
                         <step>
+                            <type>REGEX</type>
+                            <params>^(\d+\.?\d?)
+\1</params>
+                        </step>
+                        <step>
                             <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                            <params>60</params>
+                            <params>{$HB_INTERVAL}</params>
                         </step>
                     </preprocessing>
                     <triggers>
@@ -433,6 +438,41 @@
                     <item_prototypes>
                         <item_prototype>
                             <name>{${#MACRO}}: влажность</name>
+                            <type>CALCULATED</type>
+                            <key>mth[{#DEVICE}/controls/Humidity/clear]</key>
+                            <delay>{$HB_INTERVAL}</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <params>percentile(&quot;mth[{#DEVICE}/controls/Humidity]&quot;,{$CHECK_INTERVAL},,75)</params>
+                            <applications>
+                                <application>
+                                    <name>влажность</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                                    <name>{${#MACRO}}: высокая влажность</name>
+                                    <priority>INFO</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>humid</tag>
+                                            <value>high</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: влажность (грязная)</name>
                             <type>TRAP</type>
                             <key>mth[{#DEVICE}/controls/Humidity]</key>
                             <delay>0</delay>
@@ -453,21 +493,54 @@
                                 </step>
                             </preprocessing>
                             <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: температура</name>
+                            <type>CALCULATED</type>
+                            <key>mth[{#DEVICE}/controls/Temperature/clear]</key>
+                            <delay>{$HB_INTERVAL}</delay>
+                            <history>{$W_HISTORY}</history>
+                            <trends>{$W_TREND}</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <params>percentile(&quot;mth[{#DEVICE}/controls/Temperature]&quot;,{$CHECK_INTERVAL},,75)</params>
+                            <applications>
+                                <application>
+                                    <name>температура</name>
+                                </application>
+                            </applications>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{percentile({$CHECK_INTERVAL},,75)}&gt;{$HUMID_MAX:&quot;{#DEVICE}&quot;}</expression>
+                                    <expression>{last()}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
                                     <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>{percentile({$CHECK_INTERVAL},,75)}&lt;{$HUMID_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                                    <name>{${#MACRO}}: высокая влажность</name>
+                                    <recovery_expression>{last()}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                                    <name>{${#MACRO}}: жарко</name>
                                     <priority>INFO</priority>
                                     <tags>
                                         <tag>
-                                            <tag>humid</tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temp</tag>
                                             <value>high</value>
                                         </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
+                                    <name>{${#MACRO}}: холодно</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
                                         <tag>
                                             <tag>mqtt</tag>
                                             <value>{#DEVICE}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temp</tag>
+                                            <value>low</value>
                                         </tag>
                                     </tags>
                                 </trigger_prototype>
@@ -499,11 +572,37 @@
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
                                 </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
                             </preprocessing>
                             <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                                    <status>DISABLED</status>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: температура</name>
+                            <name>{${#MACRO}}: температура (грязная)</name>
                             <type>TRAP</type>
                             <key>mth[{#DEVICE}/controls/Temperature]</key>
                             <delay>0</delay>
@@ -543,40 +642,6 @@
                                         <tag>
                                             <tag>mqtt</tag>
                                             <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                                <trigger_prototype>
-                                    <expression>{percentile({$CHECK_INTERVAL},,75)}&gt;{$TEMP_MAX:&quot;{#DEVICE}&quot;}</expression>
-                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>{percentile({$CHECK_INTERVAL},,75)}&lt;{$TEMP_MAX_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                                    <name>{${#MACRO}}: жарко</name>
-                                    <priority>INFO</priority>
-                                    <tags>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>temp</tag>
-                                            <value>high</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                                <trigger_prototype>
-                                    <expression>{percentile({$CHECK_INTERVAL},,75)}&lt;{$TEMP_MIN:&quot;{#DEVICE}&quot;}</expression>
-                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>{percentile({$CHECK_INTERVAL},,75)}&gt;{$TEMP_MIN_OK:&quot;{#DEVICE}&quot;}</recovery_expression>
-                                    <name>{${#MACRO}}: холодно</name>
-                                    <priority>AVERAGE</priority>
-                                    <tags>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>temp</tag>
-                                            <value>low</value>
                                         </tag>
                                     </tags>
                                 </trigger_prototype>
@@ -863,7 +928,33 @@
                                     <params>(r|w|rw|wr|)(?=.*:\1=(\d))
 \2</params>
                                 </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
                             </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                                    <status>DISABLED</status>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>{${#MACRO}}: показания счетчика</name>
@@ -879,6 +970,12 @@
                                     <name>счётчики электричества</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
+                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{nodata({$CHECK_NODATA:&quot;{#DEVICE}&quot;})}=1</expression>
@@ -1232,56 +1329,6 @@
                                 </application>
                             </applications>
                             <request_method>POST</request_method>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-mcm16[{#DEVICE}/controls/Input 1/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>{${#MACRO}}: {${#MACRO}:I1}</name>
@@ -1876,6 +1923,56 @@
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-mcm16[{#DEVICE}/controls/Input Voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>TRAP</type>
                             <key>wb-mcm16[{#DEVICE}/controls/Input Voltage]</key>
@@ -2166,56 +2263,6 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-mr3[{#DEVICE}/controls/Input 1/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
-                        <item_prototype>
                             <name>{${#MACRO}}: {${#MACRO}:I1}</name>
                             <type>TRAP</type>
                             <key>wb-mr3[{#DEVICE}/controls/Input 1]</key>
@@ -2399,6 +2446,56 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-mr3[{#DEVICE}/controls/Supply voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>TRAP</type>
                             <key>wb-mr3[{#DEVICE}/controls/Supply voltage]</key>
@@ -2504,56 +2601,6 @@
                                 </application>
                             </applications>
                             <request_method>POST</request_method>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-mr11[{#DEVICE}/controls/Input 1/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>{${#MACRO}}: {${#MACRO}:I1}</name>
@@ -3225,6 +3272,56 @@
                                 </application>
                             </applications>
                             <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-mr11[{#DEVICE}/controls/Supply voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}:  {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
@@ -3914,6 +4011,56 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Input Voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>TRAP</type>
                             <key>wb-ms-thls-v2[{#DEVICE}/controls/Input Voltage]</key>
@@ -3983,56 +4130,6 @@
                                         <tag>
                                             <tag>loud</tag>
                                             <value>high</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-ms-thls-v2[{#DEVICE}/controls/Temperature/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
                                         </tag>
                                         <tag>
                                             <tag>mqtt</tag>
@@ -4169,6 +4266,56 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-ms-thls[{#DEVICE}/controls/Input Voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>TRAP</type>
                             <key>wb-ms-thls[{#DEVICE}/controls/Input Voltage]</key>
@@ -4238,56 +4385,6 @@
                                         <tag>
                                             <tag>loud</tag>
                                             <value>high</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-ms-thls[{#DEVICE}/controls/Temperature/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
                                         </tag>
                                         <tag>
                                             <tag>mqtt</tag>
@@ -4610,6 +4707,56 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
+                            <name>{${#MACRO}}: ошибки связи</name>
+                            <type>TRAP</type>
+                            <key>wb-msw2[{#DEVICE}/controls/Input Voltage/meta/error]</key>
+                            <delay>0</delay>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
+                            <applications>
+                                <application>
+                                    <name>состояние датчиков</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>mqttErrors</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(.*)
+\1:=0:r=1:w=2:rw=3:wr=3</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                    <tags>
+                                        <tag>
+                                            <tag>deferred</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>error</tag>
+                                            <value>rw</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>mqtt</tag>
+                                            <value>{#DEVICE}</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{${#MACRO}}: напряжение питания датчика</name>
                             <type>TRAP</type>
                             <key>wb-msw2[{#DEVICE}/controls/Input Voltage]</key>
@@ -4679,56 +4826,6 @@
                                         <tag>
                                             <tag>loud</tag>
                                             <value>high</value>
-                                        </tag>
-                                        <tag>
-                                            <tag>mqtt</tag>
-                                            <value>{#DEVICE}</value>
-                                        </tag>
-                                    </tags>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{${#MACRO}}: ошибки связи</name>
-                            <type>TRAP</type>
-                            <key>wb-msw2[{#DEVICE}/controls/Temperature/meta/error]</key>
-                            <delay>0</delay>
-                            <history>{$ERR_HISTORY}</history>
-                            <trends>{$ERR_TREND}</trends>
-                            <applications>
-                                <application>
-                                    <name>состояние датчиков</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>mqttErrors</name>
-                            </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(.*)
-\1:=0:r=1:w=2:rw=3:wr=3</params>
-                                </step>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>(r|w|rw|wr|)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>{${#MACRO}}: {ITEM.VALUE1}</name>
-                                    <priority>WARNING</priority>
-                                    <manual_close>YES</manual_close>
-                                    <tags>
-                                        <tag>
-                                            <tag>deferred</tag>
-                                        </tag>
-                                        <tag>
-                                            <tag>error</tag>
-                                            <value>rw</value>
                                         </tag>
                                         <tag>
                                             <tag>mqtt</tag>
@@ -4827,6 +4924,11 @@
                                     <type>IN_RANGE</type>
                                     <params>-100
 100</params>
+                                </step>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>^(\d+\.?\d?)
+\1</params>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
