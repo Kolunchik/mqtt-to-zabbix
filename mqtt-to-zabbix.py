@@ -19,21 +19,25 @@ def send_dump_to_zabbix(prog,q):
         metrics=q.get()
         with open(filename,mode="w") as target:
             for k,v in metrics.items():
-                if "/devices/" in k:
-                    splitted=k.split("/")
+                splitted=k.split("/")
+                host=splitted[0]
+                if "devices" in splitted:
                     offset=splitted.index("devices")+1
                     device_id=splitted[offset].split("_",1)
                     k=device_id[0]+'['+'/'.join(splitted[offset:])+']'
-                print("- {} {}".format(json.dumps(k),json.dumps(v)),file=target)
+                else:
+                    k='/'.join(splitted[1:])
+                print("{} {} {}".format(json.dumps(host),json.dumps(k),json.dumps(v)),file=target)
         subprocess.call(prog)
+        q.task_done()
 
-def send_lld_to_zabbix(prog,q):
+def parse_data_for_lld(mqtt_data):
     lld={}
     lld_skip={}
-    metrics=q.get()
-    for k in metrics:
-        if "/devices/" in k:
-            splitted=k.split("/")
+    for k in mqtt_data:
+        splitted=k.split("/")
+        host=splitted[0]
+        if "devices" in splitted:
             offset=splitted.index("devices")+1
             device_id=splitted[offset].split("_",1)
             if not "controls" in splitted[offset+1]:
@@ -49,24 +53,14 @@ def send_lld_to_zabbix(prog,q):
             lld_skip[splitted[offset]]=True
             name_macro="N_"+str.upper(splitted[offset].replace("-","_"))
             lld_info={"{#DEVICE}":splitted[offset],"{#MACRO}":name_macro}
-            if not device_id[0] in lld:
-                lld[device_id[0]]=[lld_info]
+            k=host+'/'+device_id[0]+'.lld'
+            if not k in lld:
+                lld[k]=[lld_info]
             else:
-                lld[device_id[0]].append(lld_info)
-
-    with open(filename,mode="w") as target:
-        for k,v in lld.items():
-            v=json.dumps(v)
-            print("- {} {}".format(json.dumps(k+'.lld'),json.dumps(v)),file=target)
-    subprocess.call(prog)
-    sys.exit()
-
-def send_null_lld_to_zabbix(prog,q,lld_null):
-    with open(filename,mode="w") as target:
-        for k in lld_null:
-            v=json.dumps([])
-            print("- {} {}".format(json.dumps(k+'.lld'),json.dumps(v)),file=target)
-    subprocess.call(prog)
+                lld[k].append(lld_info)
+    for k in lld:
+        lld[k]=json.dumps(lld[k])
+    return lld
 
 def copy_every(seconds,mqtt_data,q,only_new):
     def trapper(signum, frame):
@@ -76,6 +70,13 @@ def copy_every(seconds,mqtt_data,q,only_new):
         else:
             q.put(mqtt_data)
         signal.alarm(seconds)
+    signal.signal(signal.SIGALRM, trapper)
+    signal.alarm(seconds)
+
+def make_lld(seconds,mqtt_data,q,client):
+    def trapper(signum, frame):
+        q.put(parse_data_for_lld(mqtt_data))
+        client.disconnect()
     signal.signal(signal.SIGALRM, trapper)
     signal.alarm(seconds)
 
@@ -97,10 +98,11 @@ def publish(client,topic,payload=None,qos=0,retain=False):
     return client.publish(topic,payload,qos,retain)
 
 def on_message(client,userdata,msg):
+    topic=userdata['args'].zabbix_sender_source+msg.topic
     if not userdata['args'].every or ( userdata['args'].instant and userdata['args'].instant in msg.topic ):
-        userdata['q'].put({msg.topic:msg.payload.decode().strip()})
+        userdata['q'].put({topic:msg.payload.decode().strip()})
     else:
-        userdata['mqtt_data'][msg.topic]=msg.payload.decode().strip()
+        userdata['mqtt_data'][topic]=msg.payload.decode().strip()
 
 def get_parser():
     parser=argparse.ArgumentParser(description="Wirenboard MQTT-to-Zabbix gateway", add_help=False)
@@ -113,7 +115,7 @@ def get_parser():
     parser.add_argument("-P","--mqtt-password",help="MQTT password")
     parser.add_argument("-u","--mqtt-login",help="MQTT login")
     parser.add_argument("-c","--zabbix-sender-config",help="path to zabbix_sender config",default="/etc/zabbix/zabbix_agentd.conf")
-    parser.add_argument("-s","--zabbix-sender-source",help="source host for zabbix_sender")
+    parser.add_argument("-s","--zabbix-sender-source",help="source host for zabbix_sender",default="-")
     parser.add_argument("--every",type=int,help="send data to zabbix ever n seconds",default=10)
     parser.add_argument("--only-new",help="send only fresh data",default=False,action='store_true')
     parser.add_argument("--instant",help="send this topics immediately")
@@ -135,29 +137,27 @@ def get_client(userdata,on_connect,on_message):
 
 def letsgo():
     args=get_parser().parse_args()
-    userdata={"args":args,"mqtt_data":{},"q":multiprocessing.Queue()}
-    zabbix_sender_options=["zabbix_sender","--config",userdata['args'].zabbix_sender_config,"-i",filename]
-    if args.zabbix_sender_source:
-        zabbix_sender_options+=["-s",args.zabbix_sender_source]
-    args_to_processor=(zabbix_sender_options,userdata["q"])
+    q=multiprocessing.JoinableQueue()
+    mqtt_data={}
+    userdata={"args":args,"mqtt_data":mqtt_data,"q":q}
+    zabbix_sender_options=("zabbix_sender","--config",args.zabbix_sender_config,"-i",filename)
     client=get_client(userdata,on_connect,on_message)
-    if args.every:
-        copy_every(args.every,userdata["mqtt_data"],userdata["q"],args.only_new)
+    p=multiprocessing.Process(target=send_dump_to_zabbix,args=(zabbix_sender_options,q))
+    p.start()
     if args.lld_null:
-        send_null_lld_to_zabbix(*args_to_processor,args.lld_null)
-        sys.exit()
-    if args.lld:
-        processor=multiprocessing.Process(target=send_lld_to_zabbix,args=(args_to_processor))
-        processor.start()
-        while True:
-            client.loop()
-            if processor.exitcode!=None:
-                print(processor.exitcode)
-                sys.exit()
-    else:
-        processor=multiprocessing.Process(target=send_dump_to_zabbix,args=(args_to_processor))
-        processor.start()
+        args.instant=None
+        for k in args.lld_null:
+            q.put({args.zabbix_sender_source+'/'+k+'.lld':json.dumps([])})
+    elif args.lld:
+        args.instant=None
+        make_lld(args.every,mqtt_data,q,client)
         client.loop_forever()
+    else:
+        if args.every:
+            copy_every(args.every,mqtt_data,q,args.only_new)
+        client.loop_forever()
+    q.join()
+    p.terminate()
 
 if __name__ == "__main__":
     letsgo()
