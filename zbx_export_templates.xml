@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-03-21T06:47:20Z</date>
+    <date>2020-03-23T04:43:10Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -671,6 +671,12 @@
                                     <name>комфорт</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
@@ -692,6 +698,10 @@
                                     <type>IN_RANGE</type>
                                     <params>0
 100</params>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
                                 </step>
                             </preprocessing>
                             <request_method>POST</request_method>
@@ -728,6 +738,12 @@
                                     <name>питание датчиков</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
@@ -763,6 +779,12 @@
                                     <name>осадки</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
@@ -778,6 +800,12 @@
                                     <name>осадки</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
+                                </step>
+                            </preprocessing>
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
@@ -799,6 +827,10 @@
                                     <type>IN_RANGE</type>
                                     <params>-100
 100</params>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>{$HB_INTERVAL}</params>
                                 </step>
                             </preprocessing>
                             <request_method>POST</request_method>

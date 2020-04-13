@@ -62,22 +62,8 @@ def parse_data_for_lld(mqtt_data):
         lld[k]=json.dumps(lld[k])
     return lld
 
-def copy_every(seconds,mqtt_data,q,only_new):
-    def trapper(signum, frame):
-        if only_new:
-            q.put(mqtt_data.copy())
-            mqtt_data.clear()
-        else:
-            q.put(mqtt_data)
-        signal.alarm(seconds)
-    signal.signal(signal.SIGALRM, trapper)
-    signal.alarm(seconds)
-
-def make_lld(seconds,mqtt_data,q,client):
-    def trapper(signum, frame):
-        q.put(parse_data_for_lld(mqtt_data))
-        client.disconnect()
-    signal.signal(signal.SIGALRM, trapper)
+def run_after(seconds,sub):
+    signal.signal(signal.SIGALRM,sub)
     signal.alarm(seconds)
 
 def on_connect(client,userdata,flags,rc):
@@ -145,16 +131,25 @@ def letsgo():
     p=multiprocessing.Process(target=send_dump_to_zabbix,args=(zabbix_sender_options,q))
     p.start()
     if args.lld_null:
-        args.instant=None
         for k in args.lld_null:
             q.put({args.zabbix_sender_source+'/'+k+'.lld':json.dumps([])})
     elif args.lld:
         args.instant=None
-        make_lld(args.every,mqtt_data,q,client)
+        def trapper(signum,frame):
+            q.put(parse_data_for_lld(mqtt_data))
+            client.disconnect()
+        run_after(args.every,trapper)
         client.loop_forever()
     else:
         if args.every:
-            copy_every(args.every,mqtt_data,q,args.only_new)
+            def trapper(signum, frame):
+                if args.only_new:
+                    q.put(mqtt_data.copy())
+                    mqtt_data.clear()
+                else:
+                    q.put(mqtt_data)
+                signal.alarm(args.every)
+            run_after(args.every,trapper)
         client.loop_forever()
     q.join()
     p.terminate()
