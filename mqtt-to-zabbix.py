@@ -58,8 +58,7 @@ def parse_data_for_lld(mqtt_data):
                 lld[k]=[lld_info]
             else:
                 lld[k].append(lld_info)
-    for k in lld:
-        lld[k]=json.dumps(lld[k])
+    lld={k:json.dumps(lld[k]) for k in lld}
     return lld
 
 def run_after(seconds,sub):
@@ -102,6 +101,7 @@ def get_parser():
     parser.add_argument("-u","--mqtt-login",help="MQTT login")
     parser.add_argument("-c","--zabbix-sender-config",help="path to zabbix_sender config",default="/etc/zabbix/zabbix_agentd.conf")
     parser.add_argument("-s","--zabbix-sender-source",help="source host for zabbix_sender",default="-")
+    parser.add_argument("--host",help="set mqtt-host and zabbix-sender-source together")
     parser.add_argument("--every",type=int,help="send data to zabbix ever n seconds",default=10)
     parser.add_argument("--only-new",help="send only fresh data",default=False,action='store_true')
     parser.add_argument("--instant",help="send this topics immediately")
@@ -123,6 +123,8 @@ def get_client(userdata,on_connect,on_message):
 
 def letsgo():
     args=get_parser().parse_args()
+    if args.host:
+        args.mqtt_host=args.zabbix_sender_source=args.host
     q=multiprocessing.JoinableQueue()
     mqtt_data={}
     userdata={"args":args,"mqtt_data":mqtt_data,"q":q}
@@ -131,8 +133,8 @@ def letsgo():
     p=multiprocessing.Process(target=send_dump_to_zabbix,args=(zabbix_sender_options,q))
     p.start()
     if args.lld_null:
-        for k in args.lld_null:
-            q.put({args.zabbix_sender_source+'/'+k+'.lld':json.dumps([])})
+        lld={args.zabbix_sender_source+'/'+k+'.lld':json.dumps([]) for k in args.lld_null}
+        q.put(lld)
     elif args.lld:
         args.instant=None
         def trapper(signum,frame):
@@ -142,7 +144,7 @@ def letsgo():
         client.loop_forever()
     else:
         if args.every:
-            def trapper(signum, frame):
+            def trapper(signum,frame):
                 if args.only_new:
                     q.put(mqtt_data.copy())
                     mqtt_data.clear()

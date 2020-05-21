@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-03-23T04:43:10Z</date>
+    <date>2020-05-21T05:32:04Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -192,6 +192,23 @@
                         </step>
                     </preprocessing>
                     <triggers>
+                        <trigger>
+                            <expression>{delta({$CHECK_INTERVAL_SHORT})}&gt;0.4</expression>
+                            <name>{$N_MQTT}: болтается напряжение питания</name>
+                            <description>возможно, блок питания собирается попрощаться с нами</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>{$N_MQTT}: давно не поступали данные</name>
+                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>mqtt</tag>
+                                    <value>{$N_MQTT}</value>
+                                </tag>
+                            </tags>
+                        </trigger>
                         <trigger>
                             <expression>{count({$CHECK_INTERVAL})}&gt;1 and {delta({$CHECK_INTERVAL})}=0</expression>
                             <name>{$N_MQTT}: давно не изменялось значение напряжения питания контроллера</name>
@@ -5309,12 +5326,12 @@
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_MIN}</macro>
-                    <value>10</value>
+                    <value>11</value>
                     <description>минимальное напряжение питания датчиков, сработка</description>
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_MIN_OK}</macro>
-                    <value>11</value>
+                    <value>11.5</value>
                     <description>минимальное напряжение питания датчиков, покой</description>
                 </macro>
                 <macro>
