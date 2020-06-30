@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-05-21T05:32:04Z</date>
+    <date>2020-06-30T05:51:10Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -193,13 +193,14 @@
                     </preprocessing>
                     <triggers>
                         <trigger>
-                            <expression>{delta({$CHECK_INTERVAL_SHORT})}&gt;0.4</expression>
+                            <expression>{delta({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MAX_DELTA}</expression>
                             <name>{$N_MQTT}: болтается напряжение питания</name>
                             <description>возможно, блок питания собирается попрощаться с нами</description>
                             <dependencies>
                                 <dependency>
-                                    <name>{$N_MQTT}: давно не поступали данные</name>
-                                    <expression>{Template MQTT:system[system/controls/uptime].nodata({$CHECK_NODATA:UPTIME})}=1</expression>
+                                    <name>{$N_MQTT}: напряжение питания контроллера ниже {$VOLTAGE_MIN} V</name>
+                                    <expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].avg({$CHECK_INTERVAL_SHORT})}&lt;{$VOLTAGE_MIN}</expression>
+                                    <recovery_expression>{Template MQTT:wb-adc[wb-adc/controls/Vin].avg({$CHECK_INTERVAL_SHORT})}&gt;{$VOLTAGE_MIN_OK}</recovery_expression>
                                 </dependency>
                             </dependencies>
                             <tags>
@@ -747,8 +748,8 @@
                             <type>TRAP</type>
                             <key>oregon[{#DEVICE}/controls/low_battery]</key>
                             <delay>0</delay>
-                            <history>{$W_HISTORY}</history>
-                            <trends>{$W_TREND}</trends>
+                            <history>{$ERR_HISTORY}</history>
+                            <trends>{$ERR_TREND}</trends>
                             <value_type>FLOAT</value_type>
                             <applications>
                                 <application>
@@ -5323,6 +5324,11 @@
                     <macro>{$VOLTAGE_HISTORY}</macro>
                     <value>1d</value>
                     <description>история напряжения питания датчиков</description>
+                </macro>
+                <macro>
+                    <macro>{$VOLTAGE_MAX_DELTA}</macro>
+                    <value>0.4</value>
+                    <description>максимально допустимый разброс значений</description>
                 </macro>
                 <macro>
                     <macro>{$VOLTAGE_MIN}</macro>
